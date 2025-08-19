@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XCheat Officiaal</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body {
+    background:#0a0a0a;
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+}
+
+/* Fade-in & scale animation */
+.fade-in { opacity:0; animation:fadeIn 1s forwards; }
+.fade-in-delay{ animation-delay:0.5s; }
+.fade-in-delay2{ animation-delay:1s; }
+.fade-in-delay3{ animation-delay:1.5s; }
+@keyframes fadeIn{ to{ opacity:1; } }
+
+header{
+    border-bottom:2px solid #0ff;
+    padding:15px 30px;
+    margin-top:30px;
+    font-size:22px;
+    font-weight:600;
+    text-align:center;
+    color:#0ff;
+    text-shadow:0 0 20px #0ff;
+    border-radius:12px;
+    animation:scaleUp 1s forwards;
+}
+@keyframes scaleUp{ 0%{transform:scale(0.8);opacity:0;} 100%{transform:scale(1);opacity:1;} }
+
+h1{
+    color:#0ff;
+    font-size:38px;
+    margin-top:30px;
+    text-shadow:0 0 20px #0ff,0 0 40px #0ff;
+    animation:glow 2s infinite alternate, fadeIn 1s forwards;
+}
+h2{
+    color:#ff0;
+    font-size:22px;
+    text-shadow:0 0 10px #ff0,0 0 20px #ff0;
+    margin-bottom:25px;
+}
+@keyframes glow{
+    0%{text-shadow:0 0 10px #0ff;}
+    50%{text-shadow:0 0 30px #0ff,0 0 60px #0ff;}
+    100%{text-shadow:0 0 10px #0ff;}
+}
+
+.logo img{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    border:3px solid #0ff;
+    box-shadow:0 0 40px #0ff,0 0 60px #0ff;
+    margin-bottom:25px;
+    transition:transform 0.5s,box-shadow 0.5s;
+    animation:fadeIn 1s forwards;
+}
+.logo img:hover{
+    transform:rotate(15deg) scale(1.1);
+    box-shadow:0 0 60px #0ff,0 0 100px #0ff;
+}
+
+p{
+    color:#ccc;
+    text-align:center;
+    margin-bottom:30px;
+    font-size:16px;
+    line-height:1.5;
+    animation:slideUp 1s forwards;
+}
+@keyframes slideUp{
+    0%{opacity:0; transform:translateY(20px);}
+    100%{opacity:1; transform:translateY(0);}
+}
+
+/* Buttons with ripple effect */
+.btn{
+    display:block;
+    width:85%;
+    max-width:320px;
+    margin:12px auto;
+    padding:15px;
+    text-align:center;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:600;
+    background:linear-gradient(270deg,#0ff,#00f,#ff0,#f0f);
+    background-size:600% 600%;
+    color:#000;
+    box-shadow:0 0 15px rgba(0,255,255,0.7),0 0 25px rgba(0,0,255,0.5);
+    transition: all 0.3s, transform 0.2s;
+    animation: gradientBG 6s ease infinite;
+    position:relative;
+    overflow:hidden;
+}
+.btn:hover{
+    transform:scale(1.1) rotate(-2deg);
+    box-shadow:0 0 40px rgba(0,255,255,0.9),0 0 60px rgba(0,0,255,0.8);
+}
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+/* Ripple effect */
+.btn::after{
+    content:"";
+    position:absolute;
+    width:100px; height:100px;
+    background:rgba(255,255,255,0.3);
+    display:block;
+    border-radius:50%;
+    transform:scale(0);
+    opacity:0;
+    pointer-events:none;
+}
+.btn:active::after{
+    transform:scale(2.5);
+    opacity:0.5;
+    transition:transform 0.5s, opacity 0.5s;
+}
+
+/* Social icons with animation */
+.socials{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    margin-top:30px;
+}
+.socials a{
+    color:#fff;
+    font-size:30px;
+    opacity:0;
+    transform:translateY(20px);
+    animation:slideUp 0.7s forwards;
+}
+.socials a:nth-child(1){ animation-delay:2s; }
+.socials a:nth-child(2){ animation-delay:2.2s; }
+.socials a:nth-child(3){ animation-delay:2.4s; }
+.socials a:hover{
+    color:#0ff;
+    text-shadow:0 0 20px #0ff,0 0 40px #00f;
+}
+
+#particles{
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+/* Toast */
+.toast{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:linear-gradient(90deg,#0ff,#00f);
+    color:#000;
+    padding:15px 25px;
+    border-radius:10px;
+    font-weight:600;
+    opacity:0;
+    pointer-events:none;
+    transition: all 0.5s;
+    box-shadow:0 0 20px #0ff,0 0 40px #00f;
+    z-index:1000;
+}
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<header class="fade-in">🚀 XCHEAT OFFICIAL 🚀</header>
+<h1 class="fade-in fade-in-delay"> XCHEAT </h1>
+<h2 class="fade-in fade-in-delay2"> Open Cheat All game?</h2>
+
+<div class="logo fade-in fade-in-delay3">
+    <img src="manzzy.png" alt="Logo Manzzy">
+</div>
+
+<p class="fade-in fade-in-delay3"> Cheat All Game Murah</p>
+
+<!-- Buttons linked to WA / Telegram / Channel -->
+<button class="btn" onclick="openLink('https://t.me/aulia1210')"> Contact aulia</button>
+<button class="btn" onclick="openLink('https://t.me/Rajasukii')"> Channel raja suki</button>
+<button class="btn" onclick="openLink('https://t.me/RajaSuqi')"> Grup Chat Telegram</button>
+
+<div class="socials fade-in fade-in-delay3">
+    <a href="#"><i class="fab fa-tiktok"></i></a>
+    <a href="#"><i class="fab fa-youtube"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Particle effect - lite version
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+let w=canvas.width=window.innerWidth;
+let h=canvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{ w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; });
+
+let particles=[];
+for(let i=0;i<50;i++){  // ringan
+    particles.push({
+        x:Math.random()*w,
+        y:Math.random()*h,
+        r:Math.random()*3+1,
+        dx:(Math.random()-0.5)*0.5,
+        dy:(Math.random()-0.5)*0.5,
+        alpha:Math.random()*0.7+0.3
+    });
+}
+
+function animate(){
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<particles.length;i++){
+        let p=particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(0,255,255,${p.alpha})`;
+        ctx.fill();
+
+        p.x+=p.dx;
+        p.y+=p.dy;
+        if(p.x>w)p.x=0;
+        if(p.x<0)p.x=w;
+        if(p.y>h)p.y=0;
+        if(p.y<0)p.y=h;
+
+        for(let j=i+1;j<particles.length;j++){
+            let p2=particles[j];
+            let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
+            if(dist<120){
+                ctx.beginPath();
+                ctx.strokeStyle=`rgba(0,255,255,0.2)`;
+                ctx.lineWidth=1;
+                ctx.moveTo(p.x,p.y);
+                ctx.lineTo(p2.x,p2.y);
+                ctx.stroke();
+            }
+        }
+    }
+    requestAnimationFrame(animate);
+}
+animate();
+
+// Toast
+function showToast(msg){
+    const t=document.getElementById('toast');
+    t.textContent=msg;
+    t.classList.add('show');
+    setTimeout(()=>{ t.classList.remove('show'); },2000);
+}
+
+// Open link function with toast
+function openLink(url){
+    window.open(url,'_blank');
+    showToast('Membuka link...');
+}
+</script>
+
+</body>
+</html>
